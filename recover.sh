@@ -1,10 +1,10 @@
 #! /bin/bash
-XB_DIR=/restore
+XB_DIR=/backup
 DATA_DIR=/restore-data
 mkdir -p $DATA_DIR
 
-XB_FILE=$XB_DIR/$(ls $XB_DIR *_qp.xb)
-echo file $XB_FILE
+XB_FILE=$(ls $XB_DIR/*_qp.xb)
+echo "using file $XB_FILE"
 
 cat $XB_FILE | xbstream -x -v -C $DATA_DIR
 xtrabackup --decompress --remove-original --target-dir=$DATA_DIR
@@ -16,7 +16,8 @@ sed -i -E -e 's/^server_uuid=(.*)$/# server_uuid=\1/g'\
           -e 's/^\[mysqld\]$/\[mysqld\]\nlower_case_table_names=1/g' $DATA_DIR/backup-my.cnf
 cat $DATA_DIR/backup-my.cnf
 cp $DATA_DIR/backup-my.cnf /etc/mysql/conf.d
-
-chown -R mysql:mysql $DATA_DIR
+rm -rf /var/lib/mysql
+mv $DATA_DIR /var/lib/mysql
+chown -R mysql:mysql /var/lib/mysql
 exec /entrypoint.sh "$@"
 
