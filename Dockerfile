@@ -10,5 +10,3 @@ WORKDIR /
 COPY recover.sh /
 RUN chmod +x recover.sh
 ENTRYPOINT [ "/recover.sh" ]
-
-# docker run -p 3307:3306 --name restore-mysql -v $DATA_DIR:/etc/mysql/conf.d -v $DATA_DIR:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=newpasswd -d mysql:8.0
