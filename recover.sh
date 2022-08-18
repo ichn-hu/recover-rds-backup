@@ -16,7 +16,5 @@ sed -i -E -e 's/^server_uuid=(.*)$/# server_uuid=\1/g'\
           -e 's/^\[mysqld\]$/\[mysqld\]\nlower_case_table_names=1/g' $DATA_DIR/backup-my.cnf
 cat $DATA_DIR/backup-my.cnf
 cp $DATA_DIR/backup-my.cnf /etc/mysql/conf.d
-# echo "configure done, sleeping"
-# while true; do sleep 30; done;
 exec /entrypoint.sh mysqld "$@"
 

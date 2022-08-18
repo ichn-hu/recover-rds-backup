@@ -4,8 +4,7 @@ RUN wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_
     && dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb\
     && percona-release enable-only tools release
 RUN apt-get update && apt-get install -y qpress percona-xtrabackup-80
-WORKDIR /backup
-COPY *_qp.xb /backup/
+RUN mkdir /backup
 WORKDIR /
 COPY recover.sh /
 RUN chmod +x recover.sh
