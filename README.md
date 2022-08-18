@@ -7,8 +7,13 @@
    ```
    # docker build -t rds-restorer .
    ```
+   2. to pull  
+   ```
+   # docker pull ichnhu/rds-restorer:latest
+   # docker image tag ichnhu/rds-restorer:latest rds-restorer
+   ```
 3. start  
   ```
-  # docker run -p 3308:3306 --name docker-restore -v /home/dev/recover/backup:/backup -d restorer
+  # docker run -p 3308:3306 --name docker-restore -v /home/dev/recover/backup:/backup -d rds-restorer
   ```
 
